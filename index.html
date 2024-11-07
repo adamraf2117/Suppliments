@@ -4,217 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Supplements</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".time-header").click(function() {
-                $(this).toggleClass("bg-blue-600 text-white");
-                $(this).find(".arrow").toggleClass("rotate-180");
-                $(this).next(".time-content").slideToggle();
-            });
-
-            $(".supplement-info").click(function() {
-                var supplementName = $(this).data("name");
-                var supplementDescription = $(this).next(".supplement-description").html();
-                $(".modal-title").text(supplementName);
-                $(".modal-description").html(supplementDescription);
-                $(".modal").removeClass("hidden");
-            });
-
-            $(".modal-close").click(function() {
-                $(".modal").addClass("hidden");
-            });
-        });
-    </script>
     <style>
-        .modal {
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            margin: 0; 
+            padding: 16px; 
+            background: #f5f5f7; 
         }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .modal-close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+        h1 { 
+            text-align: center; 
+            color: #1d1d1f;
+            margin-bottom: 24px;
+        }
+        .save-info {
+            background: #e8f2ff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        .time-block {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .time-header {
+            background: #007AFF;
+            color: white;
+            padding: 16px;
             font-weight: bold;
-        }
-        .modal-close:hover,
-        .modal-close:focus {
-            color: black;
-            text-decoration: none;
             cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .time-content {
+            display: none;
+        }
+        .supplement {
+            padding: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .supplement:last-child {
+            border: none;
+        }
+        .name {
+            color: #007AFF;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .name a {
+            color: #007AFF;
+            text-decoration: none;
+        }
+        .name a:hover {
+            text-decoration: underline;
+        }
+        .dosage {
+            color: #666;
+            font-size: 0.95em;
+        }
+        .arrow {
+            transition: transform 0.3s;
+        }
+        .arrow.up {
+            transform: rotate(180deg);
+        }
+        .reorder-icon {
+            font-size: 0.8em;
+            margin-left: 4px;
+            color: #666;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold mb-4">My Supplement Schedule</h1>
+<body>
+    <div class="container">
+        <h1>My Supplement Schedule</h1>
         
-        <div class="bg-blue-100 p-4 rounded-lg mb-6">
+        <div class="save-info">
             <strong>To save for easy access:</strong><br>
             📱 On iPhone: Tap share button → Add to Home Screen<br>
-            💻 On Desktop: Bookmark this page or pin to browser
+            💻 On Desktop: Bookmark this page or pin to browser<br>
+            🛒 Click any supplement name to reorder on Amazon
         </div>
 
-        <div class="space-y-4">
-            <div class="bg-white rounded-lg shadow">
-                <div class="time-header flex justify-between items-center px-4 py-3 cursor-pointer">
-                    <span>Morning (with breakfast)</span>
-                    <span class="arrow transition-transform duration-300">▼</span>
+        <div class="time-block">
+            <div class="time-header">
+                Morning (with breakfast)
+                <span class="arrow">▼</span>
+            </div>
+            <div class="time-content">
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/NOW-Super-Enzymes-180-Capsules/dp/B0013OXKHC/" target="_blank">NOW Super Enzymes</a> 🛒</div>
+                    <div class="dosage">1 capsule with breakfast</div>
                 </div>
-                <div class="time-content p-4 space-y-4">
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="NOW Super Enzymes">
-                            <div class="font-medium text-blue-600">NOW Super Enzymes 🛒</div>
-                            <div class="text-gray-500">1 capsule with breakfast</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: This supplement contains a blend of digestive enzymes (protease, lipase, amylase) and bile salts, which support the breakdown of proteins, fats, and carbohydrates.</p>
-                            <p>Relation to Findings: Your results indicated a need for digestive support. Low enzyme production can lead to poor digestion, causing symptoms like bloating and constipation. This enzyme blend helps improve food breakdown and absorption.</p>
-                            <p>Benefits: Supports more complete digestion, reduces bloating by preventing undigested food from fermenting in the gut, and can relieve strain on the digestive system, which may improve constipation.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Integrative Therapeutics – Lipotropic Complex">
-                            <div class="font-medium text-blue-600">Integrative Therapeutics – Lipotropic Complex 🛒</div>
-                            <div class="text-gray-500">1 capsule with breakfast</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: Contains bile-supportive ingredients like milk thistle, dandelion, and choline, which promote bile production and liver health.</p>
-                            <p>Relation to Findings: Inadequate bile production can cause bloating and constipation due to poor fat digestion. This supplement supports bile flow, essential for digesting fats effectively.</p>
-                            <p>Benefits: Improves fat digestion, alleviates bloating, and supports liver function, which aids overall detoxification processes. This can help relieve some of the pressure on your digestive system that contributes to your symptoms.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Pendulum Akkermansia">
-                            <div class="font-medium text-blue-600">Pendulum Akkermansia 🛒</div>
-                            <div class="text-gray-500">1 capsule with breakfast</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: A targeted probiotic containing Akkermansia muciniphila, a beneficial bacteria that supports gut barrier integrity and microbiome health.</p>
-                            <p>Relation to Findings: Your test showed a deficiency in Akkermansia, a bacteria essential for maintaining a healthy gut lining. Low levels can contribute to bloating, poor motility, and gut inflammation.</p>
-                            <p>Benefits: Strengthens the gut barrier, promotes motility, and helps maintain a balanced microbiome. This can reduce bloating and support more regular bowel movements.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Just Thrive Probiotic & Antioxidant">
-                            <div class="font-medium text-blue-600">Just Thrive Probiotic & Antioxidant 🛒</div>
-                            <div class="text-gray-500">Start with 1 capsule every other day, then daily with breakfast as tolerated</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: Contains spore-based probiotics (Bacillus strains) that are resilient, helping balance the gut microbiome and support digestive health.</p>
-                            <p>Relation to Findings: Spore probiotics are effective for managing microbiome imbalances, which were noted in your test. These strains survive the digestive tract, reaching the intestines intact and supporting beneficial bacteria.</p>
-                            <p>Benefits: Helps balance the gut microbiome, supports gut health, and reduces inflammation-associated dysbiosis. This can help with both bloating and bowel regularity.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="NOW Foods – Pumpkin Seed Oil">
-                            <div class="font-medium text-blue-600">NOW Foods – Pumpkin Seed Oil 🛒</div>
-                            <div class="text-gray-500">1,000 mg (1 softgel) with breakfast</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: Pumpkin seed oil is known for supporting bladder function and reducing urinary frequency.</p>
-                            <p>Relation to Symptoms: Your urinary symptoms, such as frequent nighttime urination and weak stream, can benefit from pumpkin seed oil, as it supports bladder control and function.</p>
-                            <p>Benefits: Reduces urinary urgency, especially at night, and supports bladder muscle function, which can alleviate frequent urination.</p>
-                        </div>
-                    </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Integrative-Therapeutics-Lipotropic-Complex-Capsules/dp/B000H88TD4/" target="_blank">Integrative Therapeutics – Lipotropic Complex</a> 🛒</div>
+                    <div class="dosage">1 capsule with breakfast</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Pendulum-Glucose-Control-Akkermansia-muciniphila/dp/B082DK7R6F/" target="_blank">Pendulum Akkermansia</a> 🛒</div>
+                    <div class="dosage">1 capsule with breakfast</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/JUST-THRIVE-Probiotic-Antioxidant-Supplement/dp/B00X4U2NH4/" target="_blank">Just Thrive Probiotic & Antioxidant</a> 🛒</div>
+                    <div class="dosage">Start with 1 capsule every other day, then daily with breakfast as tolerated</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/NOW-Pumpkin-Seed-Oil-Softgels/dp/B0013OXFUU/" target="_blank">NOW Foods – Pumpkin Seed Oil</a> 🛒</div>
+                    <div class="dosage">1,000 mg (1 softgel) with breakfast</div>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-lg shadow">
-                <div class="time-header flex justify-between items-center px-4 py-3 cursor-pointer">
-                    <span>Afternoon (with lunch)</span>
-                    <span class="arrow transition-transform duration-300">▼</span>
+        <div class="time-block">
+            <div class="time-header">
+                Afternoon (with lunch)
+                <span class="arrow">▼</span>
+            </div>
+            <div class="time-content">
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/NOW-Super-Enzymes-180-Capsules/dp/B0013OXKHC/" target="_blank">NOW Super Enzymes</a> 🛒</div>
+                    <div class="dosage">1 capsule with lunch</div>
                 </div>
-                <div class="time-content p-4 space-y-4">
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="NOW Super Enzymes">
-                            <div class="font-medium text-blue-600">NOW Super Enzymes 🛒</div>
-                            <div class="text-gray-500">1 capsule with lunch</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: This supplement contains a blend of digestive enzymes (protease, lipase, amylase) and bile salts, which support the breakdown of proteins, fats, and carbohydrates.</p>
-                            <p>Relation to Findings: Your results indicated a need for digestive support. Low enzyme production can lead to poor digestion, causing symptoms like bloating and constipation. This enzyme blend helps improve food breakdown and absorption.</p>
-                            <p>Benefits: Supports more complete digestion, reduces bloating by preventing undigested food from fermenting in the gut, and can relieve strain on the digestive system, which may improve constipation.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Integrative Therapeutics – Lipotropic Complex">
-                            <div class="font-medium text-blue-600">Integrative Therapeutics – Lipotropic Complex 🛒</div>
-                            <div class="text-gray-500">1 capsule with lunch</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: Contains bile-supportive ingredients like milk thistle, dandelion, and choline, which promote bile production and liver health.</p>
-                            <p>Relation to Findings: Inadequate bile production can cause bloating and constipation due to poor fat digestion. This supplement supports bile flow, essential for digesting fats effectively.</p>
-                            <p>Benefits: Improves fat digestion, alleviates bloating, and supports liver function, which aids overall detoxification processes. This can help relieve some of the pressure on your digestive system that contributes to your symptoms.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Biocidin LSF">
-                            <div class="font-medium text-blue-600">Biocidin LSF 🛒</div>
-                            <div class="text-gray-500">Start with 1 pump before lunch, increase to 2 pumps if needed</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: A botanical formula targeting microbial balance, helping manage yeast and harmful bacteria in the gut.</p>
-                            <p>Relation to Findings: Your test showed a low presence of yeast, which can sometimes contribute to bloating and urinary issues. Biocidin helps control yeast overgrowth, supporting a balanced microbiome.</p>
-                            <p>Benefits: Manages yeast imbalance, reduces bloating caused by microbial imbalance, and supports a healthy microbiome, which can have indirect benefits on urinary health as well.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="NOW Foods – Pygeum & Saw Palmetto with Pumpkin Seed Oil">
-                            <div class="font-medium text-blue-600">NOW Foods – Pygeum & Saw Palmetto with Pumpkin Seed Oil 🛒</div>
-                            <div class="text-gray-500">1 softgel with lunch</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: Contains saw palmetto and pygeum, which are well-researched for supporting prostate and urinary health.</p>
-                            <p>Relation to Symptoms: Saw palmetto and pygeum help manage symptoms like weak stream, urinary frequency, and nighttime urination, often related to prostate health.</p>
-                            <p>Benefits: Supports normal urine flow, reduces urinary frequency, and helps with bladder control, addressing your urinary symptoms effectively.</p>
-                        </div>
-                    </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Integrative-Therapeutics-Lipotropic-Complex-Capsules/dp/B000H88TD4/" target="_blank">Integrative Therapeutics – Lipotropic Complex</a> 🛒</div>
+                    <div class="dosage">1 capsule with lunch</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Biocidin-LSF-Liposomal-Formula-1-7/dp/B00XKVQH8M/" target="_blank">Biocidin LSF</a> 🛒</div>
+                    <div class="dosage">Start with 1 pump before lunch, increase to 2 pumps if needed</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/NOW-Pygeum-Palmetto-Extract-Softgels/dp/B001F0R7VE/" target="_blank">NOW Foods – Pygeum & Saw Palmetto with Pumpkin Seed Oil</a> 🛒</div>
+                    <div class="dosage">1 softgel with lunch</div>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-lg shadow">
-                <div class="time-header flex justify-between items-center px-4 py-3 cursor-pointer">
-                    <span>Evening (with dinner & before bed)</span>
-                    <span class="arrow transition-transform duration-300">▼</span>
+        <div class="time-block">
+            <div class="time-header">
+                Evening (with dinner & before bed)
+                <span class="arrow">▼</span>
+            </div>
+            <div class="time-content">
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/NOW-Super-Enzymes-180-Capsules/dp/B0013OXKHC/" target="_blank">NOW Super Enzymes</a> 🛒</div>
+                    <div class="dosage">1 capsule with dinner</div>
                 </div>
-                <div class="time-content p-4 space-y-4">
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="NOW Super Enzymes">
-                            <div class="font-medium text-blue-600">NOW Super Enzymes 🛒</div>
-                            <div class="text-gray-500">1 capsule with dinner</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: This supplement contains a blend of digestive enzymes (protease, lipase, amylase) and bile salts, which support the breakdown of proteins, fats, and carbohydrates.</p>
-                            <p>Relation to Findings: Your results indicated a need for digestive support. Low enzyme production can lead to poor digestion, causing symptoms like bloating and constipation. This enzyme blend helps improve food breakdown and absorption.</p>
-                            <p>Benefits: Supports more complete digestion, reduces bloating by preventing undigested food from fermenting in the gut, and can relieve strain on the digestive system, which may improve constipation.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Heather's Tummy Fiber – Organic Acacia Senegal">
-                            <div class="font-medium text-blue-600">Heather's Tummy Fiber – Organic Acacia Senegal 🛒</div>
-                            <div class="text-gray-500">½ teaspoon in water before or after dinner, adjust as tolerated</div>
-                        </div>
-                        <div class="supplement-description hidden">
-                            <p>Purpose: A gentle, soluble fiber that supports digestive regularity and provides prebiotic effects.</p>
-                            <p>Relation to Symptoms: Constipation and bloating can be improved with a gentle, soluble fiber like acacia, which promotes regularity without excessive fermentation (which can worsen bloating).</p>
-                            <p>Benefits: Increases stool bulk to ease constipation, promotes regularity, and supports a healthy microbiome, which can reduce bloating.</p>
-                        </div>
-                    </div>
-                    <div class="supplement">
-                        <div class="supplement-info cursor-pointer" data-name="Designs for Health – Calcium D-Glucarate">
-                            <div class="font-
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Heathers-Tummy-Fiber-Organic-Acacia/dp/B0002ON8DU/" target="_blank">Heather's Tummy Fiber – Organic Acacia Senegal</a> 🛒</div>
+                    <div class="dosage">½ teaspoon in water before or after dinner, adjust as tolerated</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Designs-Health-Calcium-D-Glucarate-Capsules/dp/B00DXQR5ZU/" target="_blank">Designs for Health – Calcium D-Glucarate</a> 🛒</div>
+                    <div class="dosage">500 mg (1 capsule) with dinner</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Vital-Nutrients-Green-Extract-Capsules/dp/B000H87RV4/" target="_blank">Vital Nutrients – Green Tea Extract</a> 🛒</div>
+                    <div class="dosage">500 mg with dinner</div>
+                </div>
+                <div class="supplement">
+                    <div class="name"><a href="https://www.amazon.com/Biocidin-LSF-Liposomal-Formula-1-7/dp/B00XKVQH8M/" target="_blank">Biocidin LSF (if needed)</a> 🛒</div>
+                    <div class="dosage">1 pump before dinner, increase to 2 pumps if needed</div>
+                </div>
