@@ -6,6 +6,7 @@
     <title>My Supplements</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
+        /* Same styles as before */
         body { 
             font-family: -apple-system, system-ui, sans-serif; 
             margin: 0; 
@@ -141,6 +142,8 @@
             🛒 Click any supplement name to reorder on Amazon<br>
             ℹ️ Click the "i" button next to each supplement for more information
         </div>
+
+        <!-- Time blocks start here -->
         <div class="time-block">
             <div class="time-header">
                 Morning (with breakfast)
@@ -207,9 +210,9 @@
                         <p><strong>Benefits:</strong> Reduces urinary urgency, especially at night, and supports bladder muscle function, which can alleviate frequent urination.</p>
                     </div>
                 </div>
+                
             </div>
         </div>
-
         <div class="time-block">
             <div class="time-header">
                 Afternoon (with lunch)
@@ -351,26 +354,25 @@
 
     <script>
         $(document).ready(function() {
-            // Initially hide all content
-            $('.time-content').hide();
-
-            // Toggle sections
             $('.time-header').click(function() {
-                $(this).find('.arrow').toggleClass('up');
-                $(this).next('.time-content').slideToggle(300);
+                var content = $(this).next('.time-content');
+                var arrow = $(this).find('.arrow');
+                
+                content.slideToggle(300, function() {
+                    if (content.is(':visible')) {
+                        arrow.addClass('up');
+                    } else {
+                        arrow.removeClass('up');
+                    }
+                });
             });
 
-            // Info icon click handler
             $('.info-icon').click(function(e) {
                 e.stopPropagation();
-                // Hide all other tooltips
-                $('.tooltip').not($(this).closest('.supplement').find('.tooltip
-                                                                      $('.tooltip').not($(this).closest('.supplement').find('.tooltip')).removeClass('active');
-                // Toggle current tooltip
+                $('.tooltip').removeClass('active');
                 $(this).closest('.supplement').find('.tooltip').toggleClass('active');
             });
 
-            // Close tooltips when clicking outside
             $(document).click(function(e) {
                 if (!$(e.target).closest('.tooltip, .info-icon').length) {
                     $('.tooltip').removeClass('active');
